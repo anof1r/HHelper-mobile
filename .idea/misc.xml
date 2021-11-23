@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_addMaterials.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_add_materials.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_contacts.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_information.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.22135416666666666" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/content_layout.xml" value="0.33" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/header_main_menu.xml" value="0.33" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/item_layout.xml" value="0.33" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/main_content.xml" value="0.2625" />
+        <entry key="..\:/HarmanProject/app/src/main/res/menu/drawer_main_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/HarmanProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

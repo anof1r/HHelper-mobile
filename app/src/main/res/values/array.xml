@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="course">
+        <item>Kotlin</item>
+        <item>rxJava</item>
+        <item>Android</item>
+        <item>Organization</item>
+    </string-array>
+    <string-array name="course_content">
+        <item>Kotlin lecture</item>
+        <item>rxJava lecture</item>
+        <item>Android lecture</item>
+        <item>Organization meeting</item>
+    </string-array>
+    <string-array name="course_img">
+        <item>@drawable/kotlin</item>
+        <item>@drawable/rxjava</item>
+        <item>@drawable/android</item>
+        <item>@drawable/harman2</item>
+    </string-array>
+    <string-array name="information">
+        <item>Useful links</item>
+        <item>Literature</item>
+        <item>Schedule</item>
+        <item>GitHub</item>
+    </string-array>
+    <string-array name="information_content">
+        <item>Information for greater experience</item>
+        <item>Special literature for geeks</item>
+        <item>Lectures schedule</item>
+        <item>Questions and Answers</item>
+    </string-array>
+    <string-array name="information_img">
+        <item>@drawable/links</item>
+        <item>@drawable/literature</item>
+        <item>@drawable/schedule</item>
+        <item>@drawable/git</item>
+    </string-array>
+</resources>

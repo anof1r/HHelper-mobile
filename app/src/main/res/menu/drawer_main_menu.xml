@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item android:title="@string/course"
+            android:id="@+id/id_course"
+            android:icon="@drawable/ic_course"/>
+
+        <item android:title="@string/information"
+            android:id="@+id/id_information"
+            android:icon="@drawable/ic_information"/>
+
+        <item android:title="@string/contacts"
+            android:id="@+id/id_contacts"
+            android:icon="@drawable/ic_contacts"/>
+
+        <item android:title="@string/settings"
+            android:id="@+id/id_settings"
+            android:icon="@drawable/ic_settings"/>
+    </group>
+    <item android:title="Administration tools">
+        <menu>
+            <item android:title="@string/addMaterials"
+                android:id="@+id/id_addMaterials"
+                android:icon="@drawable/ic_add_materials"/>
+            <item android:title="@string/deleteMaterials"
+                android:id="@+id/id_deleteMaterials"
+                android:icon="@drawable/ic_delete_materials"/>
+        </menu>
+    </item>
+</menu>
