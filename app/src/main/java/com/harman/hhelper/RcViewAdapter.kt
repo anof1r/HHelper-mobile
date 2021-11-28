@@ -11,9 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.harman.hhelper.main_content_jsonresponse.MainContent
 import java.util.zip.Inflater
 
-class RcViewAdapter(listArray:ArrayList<ListItem>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>() {
+class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>() {
 
     var listArrayRc = listArray
     var contextR = context
@@ -23,12 +24,11 @@ class RcViewAdapter(listArray:ArrayList<ListItem>, context: Context): RecyclerVi
         val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
         val img = itemView.findViewById<ImageView>(R.id.img)
 
-        fun bind(listItem: ListItem, context: Context){
-            tvTitle.text = listItem.titleText
-            tvContent.text = listItem.contentText
-            img.setImageResource(listItem.imageId)
+        fun bind(listItem: MainContent, context: Context){
+            tvTitle.text = listItem.title
+            tvContent.text = listItem.content
+            //img.setImageResource(listItem.imageId)
             itemView.setOnClickListener(){
-                Toast.makeText(context,"Pressed : ${tvTitle.text}",Toast.LENGTH_SHORT).show()
                 val intent = Intent(context,ContentActivity::class.java).apply {
                     putExtra("title",tvTitle.text.toString())
                     putExtra("content",tvContent.text.toString())
@@ -53,8 +53,8 @@ class RcViewAdapter(listArray:ArrayList<ListItem>, context: Context): RecyclerVi
         return listArrayRc.size
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(listArray: List<ListItem>){
-        listArrayRc.clear()
+    fun updateAdapter(listArray: List<MainContent>){
+        //listArrayRc.clear()
         listArrayRc.addAll(listArray)
         notifyDataSetChanged()
     }

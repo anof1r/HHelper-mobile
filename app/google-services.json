@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "961923473294",
+    "project_id": "hhelper-4db0a",
+    "storage_bucket": "hhelper-4db0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961923473294:android:c6ade1e0f66d9d96e40edf",
+        "android_client_info": {
+          "package_name": "com.harman.hhelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961923473294-8a8ig4juhlu5ag4oqqsk7g73k1jjqdcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW1Xml9nKGVp6LTvJO0uO3ajBxwc4mGZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961923473294-8a8ig4juhlu5ag4oqqsk7g73k1jjqdcq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

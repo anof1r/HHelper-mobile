@@ -15,7 +15,7 @@ class ContentActivity: AppCompatActivity() {
         var imgCL : ImageView = findViewById(R.id.imgCL)
         tvTitleCL.text = intent.getStringExtra("title")
         tvContentCL.text = intent.getStringExtra("content")
-        imgCL.setImageResource(intent.getIntExtra("image",R.drawable.harman2))
+        //imgCL.setImageResource(intent.getIntExtra("image",R.drawable.harman2))
     }
 
 }
