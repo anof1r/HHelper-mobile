@@ -1,8 +1,24 @@
 package com.harman.hhelper.main_content_jsonresponse
 
-data class MainContent(var id:Int,
-                       var imageId : Int,
-                       var date : String,
-                       var title : String,
-                       var content: String,
-                       var homeWork: String)
+import com.google.gson.annotations.SerializedName
+
+data class MainContent(
+
+    @field:SerializedName("date")
+    var date: String,
+
+    @field:SerializedName("imageId")
+    val imageId: Int,
+
+    @field:SerializedName("homeWork")
+    var homeWork: String,
+
+    @field:SerializedName("id")
+    val id: Int,
+
+    @field:SerializedName("title")
+    var title: String,
+
+    @field:SerializedName("content")
+    var content: String
+)

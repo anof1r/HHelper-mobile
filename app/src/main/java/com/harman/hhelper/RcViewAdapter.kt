@@ -12,12 +12,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.harman.hhelper.main_content_jsonresponse.MainContent
-import java.util.zip.Inflater
 
 class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>() {
 
-    var listArrayRc = listArray
-    var contextR = context
+    private var listArrayRc = listArray
+    private var contextR = context
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
@@ -54,7 +53,7 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     }
     @SuppressLint("NotifyDataSetChanged")
     fun updateAdapter(listArray: List<MainContent>){
-        //listArrayRc.clear()
+        listArrayRc.clear()
         listArrayRc.addAll(listArray)
         notifyDataSetChanged()
     }

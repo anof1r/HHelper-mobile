@@ -6,40 +6,39 @@ import java.net.URL
 
 class MainContentResponse {
 
-    var content : MainContent = MainContent(1,1,"","","","")
     var contentArray : ArrayList<MainContent> = ArrayList()
-    //fun main(args: Array<String>){
     fun getMainContent() : ArrayList<MainContent>  {
         var response = URL("http://192.168.0.6:8080/main_content").readText()
         var gson = Gson()
-        val contentData = gson.fromJson(response, Array<ResponseMC>::class.java)
+        val contentData = gson.fromJson(response, Array<MainContent>::class.java)
         for (it in contentData.indices){
-            content.title = contentData[it].title!!
-            content.content = contentData[it].content!!
-            content.date = contentData[it].date!!
-            content.homeWork = contentData[it].homeWork!!
+            var content = MainContent("",1,"",1,"","")
+            content.title = contentData[it].title
+            content.content = contentData[it].content
+            content.date = contentData[it].date
+            content.homeWork = contentData[it].homeWork
             contentArray.add(content)
         }
         return contentArray
     }
 
-    fun getContent() : String{
-        return content.content
+    fun getContent() : String {
+        return contentArray[contentArray.lastIndex].content
     }
-    fun getTitle(): String{
-        return content.title
+    fun getTitle(): String {
+        return contentArray[contentArray.lastIndex].title
     }
-    fun getId(): Int{
-        return content.id
+    fun getId(): Int {
+        return contentArray[contentArray.lastIndex].id
     }
-    fun getImgId(): Int{
-        return content.imageId
+    fun getImgId(): Int {
+        return contentArray[contentArray.lastIndex].imageId
     }
-    fun getDate(): String{
-        return content.date
+    fun getDate(): String {
+        return contentArray[contentArray.lastIndex].date
     }
-    fun getHw(): String{
-        return content.homeWork
+    fun getHw(): String {
+        return contentArray[contentArray.lastIndex].homeWork
     }
 
 }
