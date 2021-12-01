@@ -10,11 +10,11 @@ class ContentActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_layout)
-        var tvTitleCL : TextView = findViewById(R.id.tvTitleCL)
-        var tvContentCL : TextView = findViewById(R.id.tvContentCL)
-        var imgCL : ImageView = findViewById(R.id.imgCL)
+        val tvTitleCL : TextView = findViewById(R.id.tvTitleCL)
+        val tvContentCL : TextView = findViewById(R.id.tvContentCL)
+        val imgCL : ImageView = findViewById(R.id.imgCL)
         tvTitleCL.text = intent.getStringExtra("title")
         tvContentCL.text = intent.getStringExtra("content")
-        //imgCL.setImageResource(intent.getIntExtra("image",R.drawable.harman2))
+        imgCL.setImageResource(intent.getIntExtra("image",R.drawable.harman2))
     }
 }

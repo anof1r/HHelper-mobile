@@ -1,31 +1,38 @@
 package com.harman.hhelper.main_content_jsonresponse
 
+import android.content.Context
+import android.content.res.Resources
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.harman.hhelper.MainActivity
 
 import java.net.URL
 
 class MainContentResponse {
 
     var contentArray : ArrayList<MainContent> = ArrayList()
+
     fun getMainContent() : ArrayList<MainContent>  {
-        var response = URL("http://192.168.0.6:8080/main_content").readText()
-        var gson = Gson()
+        val response = URL("http://192.168.0.4:8080/main_content").readText()
+        val gson = Gson()
         val contentData = gson.fromJson(response, Array<MainContent>::class.java)
         for (it in contentData.indices){
-            var content = MainContent("",1,"",1,"","")
+            val content = MainContent("",1,"",1,"","")
             content.title = contentData[it].title
             content.content = contentData[it].content
             content.date = contentData[it].date
             content.homeWork = contentData[it].homeWork
+            content.imageId = contentData[it].imageId
             contentArray.add(content)
         }
+
         return contentArray
     }
 
     fun getContent() : String {
         return contentArray[contentArray.lastIndex].content
     }
-    fun getTitle(): String {
+    fun get_Title(): String {
         return contentArray[contentArray.lastIndex].title
     }
     fun getId(): Int {
@@ -40,5 +47,7 @@ class MainContentResponse {
     fun getHw(): String {
         return contentArray[contentArray.lastIndex].homeWork
     }
-
 }
+
+
+

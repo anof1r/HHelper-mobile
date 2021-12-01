@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.harman.hhelper.information_response.InfoResponse
+import com.harman.hhelper.information_response.Information
 import com.harman.hhelper.main_content_jsonresponse.MainContent
 import com.harman.hhelper.main_content_jsonresponse.MainContentResponse
 import kotlinx.coroutines.*
@@ -20,10 +22,12 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
     var adapter : RcViewAdapter?= null
     var mcResponse : MainContentResponse = MainContentResponse()
+    var information : Information = Information()
     var contentArray : ArrayList<MainContent> = ArrayList()
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
+    lateinit var inf : InfoResponse
 
-
+    @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,25 +35,24 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         nav_view.setNavigationItemSelectedListener(this)
 
 
-        var rcView : RecyclerView = findViewById(R.id.rcView)
+        val rcView : RecyclerView = findViewById(R.id.rcView)
 
-        var list = ArrayList<MainContent>()
-
+        val list = ArrayList<MainContent>()
 
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(this)
         adapter = RcViewAdapter(list,this)
         rcView.adapter = adapter
 
-
         GlobalScope.launch {
                 contentArray = mcResponse.getMainContent()
                 adapter?.updateAdapter(contentArray)
+                inf = information.getMainContent()
+
         }
-       // Thread {
-         //    contentArray = mcResponse.getMainContent()
-        //}.start()
+
     }
+
     override fun onStart(){
         super.onStart()
         if(auth.currentUser == null){
@@ -58,20 +61,25 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             R.id.id_course -> {
-        // Clear array + checkArrayChanges
+                adapter?.updateAdapter(contentArray)
+                // Clear array + checkArrayChanges
             }
-            R.id.id_information ->{
-               // adapter?.updateAdapter(fillArrays(resources.getStringArray(R.array.information),
-                    //resources.getStringArray(R.array.information_content),
-                    //getImageId(R.array.information_img)))
+            R.id.id_information -> {
+                val intent = Intent(this@MainActivity,InfoLayout::class.java)
+                intent.putExtra("links",information.getLinks())
+                intent.putExtra("literature",information.getLinksL())
+                intent.putExtra("schedule",information.getSchedule())
+                startActivity(intent)
             }
+
             R.id.id_contacts ->{
 
             }
             R.id.id_settings ->{
                 auth.signOut()
+                //переделать на NestedScrollView
                 startActivity(Intent(this@MainActivity,LoginActivity::class.java))
             }
         }
@@ -79,6 +87,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     /*
     private fun fillArrays(title:String, content: String, id:Int, imageId:Int, date:String, hw:String): List<MainContent>{
         val listItemArray = ArrayList<MainContent>()
@@ -86,7 +95,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         listItemArray.add(listItem)
         return listItemArray
     }
-
      */
 
     fun getImageId(imageArrayId: Int): IntArray{

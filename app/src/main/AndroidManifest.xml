@@ -23,6 +23,7 @@
         <activity android:name=".ContentActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".InfoLayout" />
     </application>
 
 </manifest>
