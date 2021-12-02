@@ -9,10 +9,14 @@
         <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_contacts.xml" value="0.3828125" />
         <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_information.xml" value="0.3828125" />
         <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.3828125" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/night_mode.xml" value="0.21302083333333333" />
+        <entry key="..\:/HarmanProject/app/src/main/res/drawable-anydpi/sign_out.xml" value="0.21302083333333333" />
         <entry key="..\:/HarmanProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
         <entry key="..\:/HarmanProject/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.22135416666666666" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/content_layout.xml" value="0.33" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/content_manager.xml" value="0.36666666666666664" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/fragment_settings.xml" value="0.2526041666666667" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/header_main_menu.xml" value="0.33" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/info_layout.xml" value="0.22" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/item_layout.xml" value="0.33" />
@@ -20,7 +24,9 @@
         <entry key="..\:/HarmanProject/app/src/main/res/layout/register_activity.xml" value="0.22" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/registration_activity.xml" value="0.25" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/sign_in_activity.xml" value="0.33" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/sm.xml" value="0.2526041666666667" />
         <entry key="..\:/HarmanProject/app/src/main/res/menu/drawer_main_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/HarmanProject/app/src/main/res/menu/settings_menu.xml" value="0.2526041666666667" />
         <entry key="..\:/HarmanProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
       </map>
     </option>

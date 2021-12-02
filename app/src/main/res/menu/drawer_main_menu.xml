@@ -14,19 +14,24 @@
         <item android:title="@string/contacts"
             android:id="@+id/id_contacts"
             android:icon="@drawable/ic_contacts"/>
-
-        <item android:title="@string/settings"
-            android:id="@+id/id_settings"
-            android:icon="@drawable/ic_settings"/>
     </group>
-    <item android:title="Administration tools">
+
+    <item android:title="@string/settings">
         <menu>
-            <item android:title="@string/addMaterials"
-                android:id="@+id/id_addMaterials"
+            <item android:title="@string/night_mode"
+                android:id="@+id/night_mode"
+                android:icon="@drawable/night_mode"/>
+            <item android:title="@string/sign_out"
+                android:id="@+id/id_sign_out"
+                android:icon="@drawable/sign_out"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/administration_tools">
+        <menu>
+            <item android:title="@string/open_content_manager"
+                android:id="@+id/id_content_manager"
                 android:icon="@drawable/ic_add_materials"/>
-            <item android:title="@string/deleteMaterials"
-                android:id="@+id/id_deleteMaterials"
-                android:icon="@drawable/ic_delete_materials"/>
         </menu>
     </item>
 </menu>
