@@ -3,17 +3,12 @@ package com.harman.hhelper
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.harman.hhelper.information_response.Information
 import com.harman.hhelper.main_content_jsonresponse.MainContent
 
 class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>() {
@@ -22,19 +17,24 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     private var contextR = context
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+        private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
+        private val img: ImageView = itemView.findViewById(R.id.img)
 
-        val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-        val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
-        val img = itemView.findViewById<ImageView>(R.id.img)
+        private fun getImageId(context: Context, imageName: String): Int {
+            return context.resources.getIdentifier("drawable/$imageName", null, context.packageName)
+        }
+
         fun bind(listItem: MainContent, context: Context){
+            val resId = getImageId(context,listItem.imageId)
             tvTitle.text = listItem.title
             tvContent.text = listItem.content
-            img.setImageResource(listItem.imageId)
+            img.setImageResource(resId)
             itemView.setOnClickListener {
                 val intent = Intent(context,ContentActivity::class.java).apply {
                     putExtra("title",tvTitle.text.toString())
                     putExtra("content",tvContent.text.toString())
-                    putExtra("image",listItem.imageId)
+                    putExtra("image",resId)
                 }
                 context.startActivity(intent)
             }
@@ -47,7 +47,7 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var listItem = listArrayRc[position]
+        val listItem = listArrayRc[position]
         holder.bind(listItem,contextR)
     }
 

@@ -8,7 +8,7 @@ data class MainContent(
     var date: String,
 
     @field:SerializedName("imageId")
-    var imageId: Int,
+    var imageId: String,
 
     @field:SerializedName("homeWork")
     var homeWork: String,

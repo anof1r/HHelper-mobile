@@ -1,6 +1,5 @@
 package com.harman.hhelper.information_response
 
-import androidx.core.net.toUri
 import com.google.gson.Gson
 import java.net.URL
 
@@ -9,6 +8,7 @@ class Information {
     lateinit var infoResponse : InfoResponse
 
     fun getMainContent(): InfoResponse {
+        //val response = URL("http://95.79.178.246:8080/information").readText()
         val response = URL("http://192.168.0.4:8080/information").readText()
         val gson = Gson()
         infoResponse = gson.fromJson(response, InfoResponse::class.java)
@@ -17,9 +17,6 @@ class Information {
     }
 
     fun getLinks(): String {
-        //return infoResponse.links.joinToString{
-            //it.href
-            //it.description
         return infoResponse.links.joinToString(""){
             it.description + "\n" + it.href + "\n"
         }

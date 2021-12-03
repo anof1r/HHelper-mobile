@@ -27,11 +27,14 @@
         </menu>
     </item>
 
-    <item android:title="@string/administration_tools">
+    <item
+        android:id="@+id/admin_tools"
+        android:title="@string/administration_tools">
         <menu>
-            <item android:title="@string/open_content_manager"
+            <item
                 android:id="@+id/id_content_manager"
-                android:icon="@drawable/ic_add_materials"/>
+                android:icon="@drawable/ic_add_materials"
+                android:title="@string/open_content_manager" />
         </menu>
     </item>
 </menu>

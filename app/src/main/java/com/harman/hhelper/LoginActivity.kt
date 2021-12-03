@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_in_activity)
 
+
         etLoginEmail = findViewById(R.id.etLoginEmail)
         etLoginPassword = findViewById(R.id.etLoginPass)
         tvRegisterHere = findViewById(R.id.tvRegisterHere)
@@ -37,15 +38,15 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
     }
-    fun loginUser(){
+    private fun loginUser(){
         val email : String = etLoginEmail.text.toString()
         val password :  String = etLoginPassword.text.toString()
 
         if (TextUtils.isEmpty(email)){
-            etLoginEmail.setError("Email cannot be empty")
+            etLoginEmail.error = "Email cannot be empty"
             etLoginPassword.requestFocus()
         } else if (TextUtils.isEmpty(password)){
-            etLoginPassword.setError("Password cannot be empty")
+            etLoginPassword.error = "Password cannot be empty"
             etLoginPassword.requestFocus()
         }else{
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->

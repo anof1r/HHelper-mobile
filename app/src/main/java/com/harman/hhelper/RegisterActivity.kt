@@ -1,6 +1,5 @@
 package com.harman.hhelper
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,6 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.collections.HashMap
 
 class RegisterActivity: AppCompatActivity() {
 
@@ -18,7 +20,7 @@ class RegisterActivity: AppCompatActivity() {
     lateinit var etLoginHere : TextView
     lateinit var btnRegister : Button
     lateinit var auth : FirebaseAuth
-
+    lateinit var fStore : FirebaseFirestore
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ class RegisterActivity: AppCompatActivity() {
         btnRegister = findViewById(R.id.btnRegister)
 
         auth = FirebaseAuth.getInstance()
+        fStore = FirebaseFirestore.getInstance()
 
         btnRegister.setOnClickListener {
             createUser()
@@ -45,18 +48,24 @@ class RegisterActivity: AppCompatActivity() {
        val password :  String = etRegPassword.text.toString()
 
         if (TextUtils.isEmpty(email)){
-            etRegEmail.setError("Email cannot be empty")
+            etRegEmail.error = "Email cannot be empty"
             etRegEmail.requestFocus()
         } else if (TextUtils.isEmpty(password)){
-            etRegPassword.setError("Password cannot be empty")
+            etRegPassword.error = "Password cannot be empty"
             etRegPassword.requestFocus()
         } else{
             auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    Toast.makeText(this,"Registration complete !", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser!!
+                    val doc = fStore.collection("Users").document(user.uid)
+                    val userInfo = HashMap<String,Any>()
+                    userInfo["USerEmail"] = email
+                    userInfo["isAdmin"] = 0
+                    doc.set(userInfo)
+                    Toast.makeText(this,"Registration complete!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@RegisterActivity,LoginActivity::class.java))
                 }else{
-                    Toast.makeText(this,"Registration Error: " + task.exception?.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
                 }
             }
 
