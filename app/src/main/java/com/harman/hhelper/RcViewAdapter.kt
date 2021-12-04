@@ -11,7 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.harman.hhelper.main_content_jsonresponse.MainContent
 
-class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>() {
+
+class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>(){
 
     private var listArrayRc = listArray
     private var contextR = context
@@ -39,8 +40,9 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
                 context.startActivity(intent)
             }
         }
-    }
 
+    }
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(contextR)
         return ViewHolder(inflater.inflate(R.layout.item_layout,parent,false))
@@ -56,9 +58,9 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(listArray: List<MainContent>){
-        listArrayRc.clear()
-        listArrayRc.addAll(listArray)
-        notifyDataSetChanged()
+    fun updateAdapter(listArray: List<MainContent>) {
+            listArrayRc.clear()
+            listArrayRc.addAll(listArray)
+            notifyDataSetChanged()
     }
 }

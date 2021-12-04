@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -42,6 +43,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         val list = ArrayList<MainContent>()
 
+        val refresh = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(this)
         adapter = RcViewAdapter(list, this)
@@ -56,6 +59,17 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
             runOnUiThread() {
                 adapter?.updateAdapter(contentArray)
+            }
+        }
+        refresh.setOnRefreshListener {
+            GlobalScope.launch{
+                contentArray.clear()
+                contentArray = mcResponse.getMainContent()
+
+                runOnUiThread {
+                    adapter?.updateAdapter(contentArray)
+                    refresh.isRefreshing = false
+                }
             }
         }
     }
@@ -99,7 +113,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
                     Toast.makeText(this,"Welcome Admin!",Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@MainActivity, ContentManager::class.java)
                     //intent.putExtra("url", "http://95.79.178.246:8080/web_view")
-                    intent.putExtra("url", "http://192.168.0.4:8080/web_view")
+                    intent.putExtra("url", "http://192.168.0.5:8080/web_view")
                     startActivity(intent)
                 } else {
                     Toast.makeText(this,"You're not allowed to use ContentManager",Toast.LENGTH_SHORT).show()

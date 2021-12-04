@@ -9,7 +9,7 @@ class Information {
 
     fun getMainContent(): InfoResponse {
         //val response = URL("http://95.79.178.246:8080/information").readText()
-        val response = URL("http://192.168.0.4:8080/information").readText()
+        val response = URL("http://192.168.0.5:8080/information").readText()
         val gson = Gson()
         infoResponse = gson.fromJson(response, InfoResponse::class.java)
         println(infoResponse.links.toString())

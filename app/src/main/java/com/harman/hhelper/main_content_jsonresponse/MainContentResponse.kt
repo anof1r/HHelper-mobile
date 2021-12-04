@@ -9,7 +9,7 @@ class MainContentResponse {
 
     fun getMainContent() : ArrayList<MainContent>  {
         //val response = URL("http://95.79.178.246:8080/main_content").readText()
-        val response = URL("http://192.168.0.4:8080/main_content").readText()
+        val response = URL("http://192.168.0.5:8080/main_content").readText()
         val gson = Gson()
         val contentData = gson.fromJson(response, Array<MainContent>::class.java)
         for (it in contentData.indices){
