@@ -11,9 +11,11 @@ class ContentActivity: AppCompatActivity() {
         setContentView(R.layout.content_layout)
         val tvTitleCL : TextView = findViewById(R.id.tvTitleCL)
         val tvContentCL : TextView = findViewById(R.id.tvContentCL)
+        val tvHomeWork : TextView = findViewById(R.id.hwTView)
         val imgCL : ImageView = findViewById(R.id.imgCL)
         tvTitleCL.text = intent.getStringExtra("title")
         tvContentCL.text = intent.getStringExtra("content")
+        tvHomeWork.text = intent.getStringExtra("hw")
         imgCL.setImageResource(intent.getIntExtra("image", R.drawable.harman2))
     }
 }

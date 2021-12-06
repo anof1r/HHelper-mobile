@@ -20,6 +20,7 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
+        //private var tvHomeWork: TextView = itemView.findViewById(R.id.hwTView)
         private val img: ImageView = itemView.findViewById(R.id.img)
 
         private fun getImageId(context: Context, imageName: String): Int {
@@ -30,19 +31,20 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
             val resId = getImageId(context,listItem.imageId)
             tvTitle.text = listItem.title
             tvContent.text = listItem.content
+            //tvHomeWork.text = listItem.homeWork
             img.setImageResource(resId)
             itemView.setOnClickListener {
                 val intent = Intent(context,ContentActivity::class.java).apply {
                     putExtra("title",tvTitle.text.toString())
                     putExtra("content",tvContent.text.toString())
+                    putExtra("hw",listItem.homeWork)
                     putExtra("image",resId)
                 }
                 context.startActivity(intent)
             }
         }
-
     }
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(contextR)
         return ViewHolder(inflater.inflate(R.layout.item_layout,parent,false))
