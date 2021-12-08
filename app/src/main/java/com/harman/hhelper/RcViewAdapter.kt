@@ -20,23 +20,26 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
-        //private var tvHomeWork: TextView = itemView.findViewById(R.id.hwTView)
         private val img: ImageView = itemView.findViewById(R.id.img)
 
         private fun getImageId(context: Context, imageName: String): Int {
             return context.resources.getIdentifier("drawable/$imageName", null, context.packageName)
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(listItem: MainContent, context: Context){
             val resId = getImageId(context,listItem.imageId)
             tvTitle.text = listItem.title
-            tvContent.text = listItem.content
-            //tvHomeWork.text = listItem.homeWork
+            if (listItem.content.length >= 60) {
+                tvContent.text = listItem.content.substring(0,60) + "..."
+            } else {
+                tvContent.text = listItem.content
+            }
             img.setImageResource(resId)
             itemView.setOnClickListener {
                 val intent = Intent(context,ContentActivity::class.java).apply {
                     putExtra("title",tvTitle.text.toString())
-                    putExtra("content",tvContent.text.toString())
+                    putExtra("content",listItem.content)
                     putExtra("hw",listItem.homeWork)
                     putExtra("image",resId)
                 }

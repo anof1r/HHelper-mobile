@@ -23,7 +23,8 @@
         <activity android:name=".ContentActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".InfoLayout" />
+        <activity android:name=".InfoLayout"
+            android:theme="@style/MyOwn"/>
         <activity android:name=".ContentManager"/>
     </application>
 

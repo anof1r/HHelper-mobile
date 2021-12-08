@@ -26,4 +26,7 @@
     <string name="sign_out">Sign out</string>
     <string name="administration_tools">Administration tools</string>
     <string name="open_content_manager">Open Content Manager</string>
+    <string name="additional_literature">Additional Literature</string>
+    <string name="useful_links">Useful Links</string>
+    <string name="schedule">Schedule</string>
 </resources>

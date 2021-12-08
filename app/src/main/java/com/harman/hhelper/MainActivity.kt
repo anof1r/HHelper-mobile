@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -36,8 +37,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val nav_view = findViewById<NavigationView>(R.id.nav_view)
-        nav_view.setNavigationItemSelectedListener(this)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         val rcView: RecyclerView = findViewById(R.id.rcView)
 
@@ -88,14 +89,12 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         when (item.itemId) {
             R.id.id_course -> {
                 adapter?.updateAdapter(contentArray)
-                // Clear array + checkArrayChanges
             }
             R.id.id_information -> {
                 val intent = Intent(this@MainActivity,InfoLayout::class.java)
                 intent.putExtra("links",information.getLinks())
                 intent.putExtra("literature",information.getLinksL())
                 intent.putExtra("schedule",information.getSchedule())
-                //переделать на NestedScrollView
                 startActivity(intent)
             }
             R.id.id_contacts ->{
@@ -124,6 +123,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     private fun checkAccessLevel(uid : String) : Boolean{
         val doc : DocumentReference = fStore.collection("Users").document(uid)
         doc.get().addOnSuccessListener { documentSnapshot ->
