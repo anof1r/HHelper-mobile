@@ -9,15 +9,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.harman.hhelper.main_content_jsonresponse.MainContent
+import com.harman.hhelper.api.LectureJson
+import com.harman.hhelper.api.LectureJsonItem
 
 
-class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>(){
+class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>(){
 
     private var listArrayRc = listArray
     private var contextR = context
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+
+    class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
         private val img: ImageView = itemView.findViewById(R.id.img)
@@ -25,9 +27,8 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
         private fun getImageId(context: Context, imageName: String): Int {
             return context.resources.getIdentifier("drawable/$imageName", null, context.packageName)
         }
-
         @SuppressLint("SetTextI18n")
-        fun bind(listItem: MainContent, context: Context){
+        fun bind(listItem: LectureJsonItem, context: Context){
             val resId = getImageId(context,listItem.imageId)
             tvTitle.text = listItem.title
             if (listItem.content.length >= 60) {
@@ -46,6 +47,8 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
                 context.startActivity(intent)
             }
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -63,7 +66,7 @@ class RcViewAdapter(listArray:ArrayList<MainContent>, context: Context): Recycle
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(listArray: List<MainContent>) {
+    fun updateAdapter(listArray: LectureJson) {
             listArrayRc.clear()
             listArrayRc.addAll(listArray)
             notifyDataSetChanged()

@@ -6,23 +6,24 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import org.w3c.dom.Text
 
 
-class InfoLayout : AppCompatActivity(){
+class InfoLayout : AppCompatActivity() {
 
+    private lateinit var tabLayout : TabLayout
+    private  lateinit var pager2 : ViewPager2
+    private  lateinit var adapter : FragmentAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.info_layout)
+        setContentView(R.layout.info_tab)
 
-        val infoTitle: TextView = findViewById(R.id.infoTitle)
-        val infoContent: TextView = findViewById(R.id.infoContent)
-        val infoImg : ImageView = findViewById(R.id.infoImg)
+        /*
 
-        infoTitle.text = "Useful Links"
-        infoImg.setImageResource(R.drawable.links)
-        infoContent.text = intent.extras?.getString("links").toString()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.info_menu, menu)
@@ -55,4 +56,40 @@ class InfoLayout : AppCompatActivity(){
     }
 
 
+         */
+
+        tabLayout = findViewById(R.id.tab_layout)
+        pager2 = findViewById(R.id.view_pager2)
+
+        val fm = supportFragmentManager
+        adapter = FragmentAdapter(fm,lifecycle)
+        pager2.adapter = adapter
+
+
+        //bundle.putString("links",intent.extras?.getString("links").toString())
+
+        tabLayout.addTab(tabLayout.newTab().setText("Links"))
+        tabLayout.addTab(tabLayout.newTab().setText("Literature"))
+        tabLayout.addTab(tabLayout.newTab().setText("Schedule"))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                pager2.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+        })
+
+        pager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                tabLayout.selectTab(tabLayout.getTabAt(position))
+            }
+        })
+
+    }
 }

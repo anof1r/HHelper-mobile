@@ -11,13 +11,26 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-    <style name="MyOwn" parent="Theme.MaterialComponents.DayNight">
         <item name="android:windowFullscreen">true</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="android:divider">@drawable/menu_item_padding</item>
+        <item name="android:listDivider">@android:color/transparent</item>
+    </style>
+
+
+    <style name="Theme.HHelper.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.HHelper.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="TextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle"
+        >
+        <item name="color">#AE000000</item>
+    </style>
+    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 </resources>

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.harman.hhelper">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_harman_helper"
@@ -23,9 +26,8 @@
         <activity android:name=".ContentActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".InfoLayout"
-            android:theme="@style/MyOwn"/>
-        <activity android:name=".ContentManager"/>
+        <activity android:name=".InfoLayout" />
+        <activity android:name=".ContentManager" />
     </application>
 
 </manifest>
