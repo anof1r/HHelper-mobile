@@ -1,5 +1,6 @@
 package com.harman.hhelper
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -12,6 +13,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.awaitResponse
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ContentActivity : AppCompatActivity() {
 
@@ -51,18 +55,29 @@ class ContentActivity : AppCompatActivity() {
         val tvContentCL: TextView = findViewById(R.id.tvContentCL)
         val tvHomeWork: TextView = findViewById(R.id.hwTView)
         val imgCL: ImageView = findViewById(R.id.imgCL)
+        val date : TextView = findViewById(R.id.cDate)
 
         tvTitleCL.text = intent.getStringExtra("title")
         tvContentCL.text = intent.getStringExtra("content")
-        tvHomeWork.text = intent.getStringExtra("hw")
-        imgCL.setImageResource(intent.getIntExtra("image", R.drawable.harman2))
+        tvHomeWork.text = "Homework: " + intent.getStringExtra("hw")
+        date.text = intent.getStringExtra("date")
+        imgCL.setImageResource(intent.getIntExtra("image", R.drawable.harman))
+        val id : Int = intent.getIntExtra("id",0)
 
         val fab = findViewById<FloatingActionButton>(R.id.fab_CL)
         val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
         val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
         setVisibility(true)
 
-        //lateinit var arrayToDelete : ArrayList<MainContent>
+        @DelicateCoroutinesApi
+        suspend fun deleteCurrentData(id : Int) {
+            val api = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiRequests::class.java)
+            api.deleteLecture(id).awaitResponse()
+        }
 
         fab.setOnClickListener() {
                 onSettingsButtonClicked()
@@ -70,24 +85,23 @@ class ContentActivity : AppCompatActivity() {
         }
         fabDelete.setOnClickListener {
             println("DELETE CLICKED")
-            val dialog = AlertDialog.Builder(this)
+            val deleteDialog = AlertDialog.Builder(this)
                 .setTitle("Delete lecture")
                 .setMessage("Are you sure you want to delete this lecture?")
                 .setPositiveButton("Delete", null)
                 .setNegativeButton("Cancel",null)
                 .show()
-            val pBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            val pBtn = deleteDialog.getButton(AlertDialog.BUTTON_POSITIVE)
             pBtn.setOnClickListener{
-                //TODO
-                dialog.dismiss()
+                GlobalScope.launch {
+                    deleteCurrentData(id)
+                }
+                deleteDialog.dismiss()
+                finish()
             }
-            val nBtn = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            val nBtn = deleteDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
             nBtn.setOnClickListener{
-                dialog.dismiss()
-            }
-            GlobalScope.launch {
-                //arrayToDelete = mcResponse.getMainContent()
-                //arrayToDelete.removeLast()
+                deleteDialog.dismiss()
             }
         }
         fabEdit.setOnClickListener {

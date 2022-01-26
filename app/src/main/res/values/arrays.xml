@@ -9,4 +9,11 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+    <string-array name="image_names">
+        <item>harman</item>
+        <item>rxjava</item>
+        <item>android</item>
+        <item>git</item>
+        <item>java</item>
+    </string-array>
 </resources>

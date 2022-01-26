@@ -7,7 +7,9 @@
     android:gravity="center"
     >
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_margin="16dp"
@@ -69,11 +71,11 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/addContent"
             android:hint="Lecture Info"
-            android:inputType="text"
+            android:inputType="text|textMultiLine"
             android:textColor="@color/harmanColor"
             android:background="@color/white"
             android:padding="15dp"
@@ -84,7 +86,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="150dp"/>
         <EditText
             android:id="@+id/addHomeWork"
             android:hint="Homework"
@@ -101,8 +103,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
-
     </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

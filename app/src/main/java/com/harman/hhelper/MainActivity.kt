@@ -1,19 +1,17 @@
 package com.harman.hhelper
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -26,10 +24,11 @@ import com.harman.hhelper.api.LectureJsonItem
 import com.harman.hhelper.information_response.InfoResponse
 import com.harman.hhelper.information_response.Information
 import kotlinx.coroutines.*
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 const val BASE_URL = "http://192.168.0.6:8080"
 
@@ -168,31 +167,56 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return isAdminCheck
     }
 
+    @SuppressLint("SimpleDateFormat")
     @DelicateCoroutinesApi
     private fun addInfo() {
         val inflater = LayoutInflater.from(this)
         val v = inflater.inflate(R.layout.add_item, null)
 
+        val format = "dd-MM-yyyy"
         val addTitle = v.findViewById<EditText>(R.id.addTitle)
         val addLectureInfo = v.findViewById<EditText>(R.id.addContent)
         val addImg = v.findViewById<EditText>(R.id.addImage)
         val addDate = v.findViewById<EditText>(R.id.addDate)
+        addDate.text.clear()
+        addDate.setText(SimpleDateFormat(format).format(System.currentTimeMillis()))
+            val calendar = Calendar.getInstance()
+
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val sdf = SimpleDateFormat(format, Locale.FRANCE)
+                addDate.setText(sdf.format(calendar.time))
+            }
+        addDate.setOnClickListener{
+            DatePickerDialog(this@MainActivity, dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
         val addHw = v.findViewById<EditText>(R.id.addHomeWork)
         //val addId = v.findViewById<EditText>(R.id.addId)
 
         val addDialog = AlertDialog.Builder(this)
 
         addDialog.setView(v)
-        addDialog.setPositiveButton("Ok") { dialog, _ ->
+        addDialog.setPositiveButton("Add") { dialog, _ ->
             val content = addLectureInfo.text.toString()
             val date = addDate.text.toString()
             val homeWork = addHw.text.toString()
             val imageId = addImg.text.toString()
             val title = addTitle.text.toString()
             //val id = addId.text.toString().toInt()
-            val item = LectureJsonItem(content,date,homeWork,1,imageId,title)
+            val item = LectureJsonItem(content,date,homeWork,(date + content).hashCode(),imageId,title)
             GlobalScope.launch {
                 postCurrentData(item)
+                contentArray = getCurrentData()
+                runOnUiThread{
+                    adapter?.updateAdapter(contentArray)
+                }
             }
             Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -203,5 +227,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         addDialog.create()
         addDialog.show()
+    }
+
+    @DelicateCoroutinesApi
+    override fun onResume() {
+        super.onResume()
+        GlobalScope.launch {
+            contentArray = getCurrentData()
+            informationResponse = information.getMainContent()
+            runOnUiThread {
+                adapter?.updateAdapter(contentArray)
+                //loadingDialog.dismissDialog()
+            }
+        }
     }
 }

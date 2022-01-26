@@ -16,7 +16,7 @@
         <item>@drawable/kotlin</item>
         <item>@drawable/rxjava</item>
         <item>@drawable/android</item>
-        <item>@drawable/harman2</item>
+        <item>@drawable/harman</item>
     </string-array>
     <string-array name="information">
         <item>Useful links</item>

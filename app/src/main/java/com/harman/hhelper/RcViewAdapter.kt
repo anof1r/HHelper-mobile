@@ -23,6 +23,7 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
         private val img: ImageView = itemView.findViewById(R.id.img)
+        private val date: TextView = itemView.findViewById(R.id.tvDate)
 
         private fun getImageId(context: Context, imageName: String): Int {
             return context.resources.getIdentifier("drawable/$imageName", null, context.packageName)
@@ -36,6 +37,7 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
             } else {
                 tvContent.text = listItem.content
             }
+            date.text = listItem.date
             img.setImageResource(resId)
             itemView.setOnClickListener {
                 val intent = Intent(context,ContentActivity::class.java).apply {
@@ -43,6 +45,8 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
                     putExtra("content",listItem.content)
                     putExtra("hw",listItem.homeWork)
                     putExtra("image",resId)
+                    putExtra("date",listItem.date)
+                    putExtra("id",listItem.id)
                 }
                 context.startActivity(intent)
             }

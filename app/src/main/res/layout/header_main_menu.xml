@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/harman2"
+        android:src="@drawable/harman"
         android:layout_centerVertical="true"
         android:id="@+id/header_img"/>
     <TextView
