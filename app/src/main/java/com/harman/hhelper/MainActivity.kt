@@ -27,6 +27,7 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,7 +36,6 @@ const val BASE_URL = "http://192.168.0.6:8080"
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var adapter: RcViewAdapter? = null
-    //private var mcResponse: MainContentResponse = MainContentResponse()
     private var information: Information = Information()
     private lateinit var contentArray: LectureJson
     private lateinit var auth: FirebaseAuth
@@ -100,12 +100,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val response = api.getLectures().awaitResponse()
             if (response.isSuccessful){
                 data = response.body()!!
-        }
+            } 
         return data
     }
 
     @DelicateCoroutinesApi
-    private suspend fun postCurrentData(item: LectureJsonItem) {
+    suspend fun postCurrentData(item: LectureJsonItem) {
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .create(ApiRequests::class.java)
         api.postLecture(item.content,item.date,item.homeWork,item.id,item.imageId,item.title).awaitResponse()
     }
-
 
     @SuppressLint("ResourceType")
     override fun onStart() {
@@ -177,9 +176,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val addTitle = v.findViewById<EditText>(R.id.addTitle)
         val addLectureInfo = v.findViewById<EditText>(R.id.addContent)
         val addImg = v.findViewById<EditText>(R.id.addImage)
-        val addDate = v.findViewById<EditText>(R.id.addDate)
-        addDate.text.clear()
-        addDate.setText(SimpleDateFormat(format).format(System.currentTimeMillis()))
+        val addDate = v.findViewById<TextView>(R.id.addDate)
+
+        addDate.text = SimpleDateFormat(format).format(System.currentTimeMillis())
             val calendar = Calendar.getInstance()
 
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -188,7 +187,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 val sdf = SimpleDateFormat(format, Locale.FRANCE)
-                addDate.setText(sdf.format(calendar.time))
+                addDate.text = sdf.format(calendar.time)
             }
         addDate.setOnClickListener{
             DatePickerDialog(this@MainActivity, dateSetListener,
@@ -209,7 +208,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val homeWork = addHw.text.toString()
             val imageId = addImg.text.toString()
             val title = addTitle.text.toString()
-            //val id = addId.text.toString().toInt()
             val item = LectureJsonItem(content,date,homeWork,(date + content).hashCode(),imageId,title)
             GlobalScope.launch {
                 postCurrentData(item)

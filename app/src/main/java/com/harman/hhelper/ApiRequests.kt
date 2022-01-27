@@ -25,4 +25,13 @@ interface ApiRequests {
     @FormUrlEncoded
     @POST("/deleteLecture")
     fun deleteLecture(@Field("id") id: Int) : Call<Unit>
+
+    @FormUrlEncoded
+    @POST("/editLecture")
+    fun editLecture(@Field("content") content: String,
+                    @Field("date") date: String,
+                    @Field("hw") homeWork: String,
+                    @Field("id") id : Int,
+                    @Field("imgId") ImageId: String,
+                    @Field("title") title: String) : Call<Unit>
 }
