@@ -1,4 +1,4 @@
-package com.harman.hhelper
+package com.harman.hhelper.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.harman.hhelper.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -44,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (TextUtils.isEmpty(email)){
             etLoginEmail.error = "Email cannot be empty"
-            etLoginPassword.requestFocus()
+            etLoginEmail.requestFocus()
         } else if (TextUtils.isEmpty(password)){
             etLoginPassword.error = "Password cannot be empty"
             etLoginPassword.requestFocus()
@@ -52,12 +53,11 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Toast.makeText(this,"Welcome !", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 }else{
-                    Toast.makeText(this,"Incorrect username or password !" + task.exception?.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,task.exception?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-
 }

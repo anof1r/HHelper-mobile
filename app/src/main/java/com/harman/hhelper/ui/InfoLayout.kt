@@ -1,15 +1,10 @@
-package com.harman.hhelper
+package com.harman.hhelper.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import org.w3c.dom.Text
+import com.harman.hhelper.R
 
 
 class InfoLayout : AppCompatActivity() {

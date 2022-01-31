@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.harman.hhelper.api.LectureJson
 import com.harman.hhelper.api.LectureJsonItem
+import com.harman.hhelper.ui.ContentActivity
 
 
 class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapter<RcViewAdapter.ViewHolder>(){
@@ -20,6 +21,7 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
 
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
         private val img: ImageView = itemView.findViewById(R.id.img)
@@ -40,7 +42,7 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
             date.text = listItem.date
             img.setImageResource(resId)
             itemView.setOnClickListener {
-                val intent = Intent(context,ContentActivity::class.java).apply {
+                val intent = Intent(context, ContentActivity::class.java).apply {
                     putExtra("title",tvTitle.text.toString())
                     putExtra("content",listItem.content)
                     putExtra("hw",listItem.homeWork)
@@ -51,10 +53,7 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
                 context.startActivity(intent)
             }
         }
-
-
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(contextR)
         return ViewHolder(inflater.inflate(R.layout.item_layout,parent,false))

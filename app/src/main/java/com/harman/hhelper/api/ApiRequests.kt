@@ -1,9 +1,6 @@
-package com.harman.hhelper
+package com.harman.hhelper.api
 
-import com.harman.hhelper.api.LectureJson
-import com.harman.hhelper.api.LectureJsonItem
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiRequests {

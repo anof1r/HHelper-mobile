@@ -1,13 +1,9 @@
-package com.harman.hhelper
+package com.harman.hhelper.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import org.jetbrains.annotations.NotNull
 import androidx.lifecycle.Lifecycle
-
-import androidx.annotation.NonNull
-
 
 
 class FragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :

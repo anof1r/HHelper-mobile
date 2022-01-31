@@ -1,4 +1,4 @@
-package com.harman.hhelper
+package com.harman.hhelper.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -10,15 +10,21 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.harman.hhelper.LoadingDialog
+import com.harman.hhelper.api.ApiRequests
+import com.harman.hhelper.R
+import com.harman.hhelper.RcViewAdapter
 import com.harman.hhelper.api.LectureJson
 import com.harman.hhelper.api.LectureJsonItem
 import com.harman.hhelper.information_response.InfoResponse
@@ -27,9 +33,10 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.harman.hhelper.NetworkConnection
+
 
 const val BASE_URL = "http://192.168.0.6:8080"
 
@@ -42,8 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var fStore: FirebaseFirestore
     private lateinit var informationResponse: InfoResponse
     private var isAdminCheck: Boolean = false
-
-
+    private lateinit var snackbarView : ConstraintLayout
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,16 +57,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val rcView: RecyclerView = findViewById(R.id.rcView)
-
         val list = LectureJson()
-        //val loadingDialog = LoadingDialog(this)
+        val loadingDialog = LoadingDialog(this)
         val refresh = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
-
+        snackbarView = findViewById(R.id.main_content_layout)
         val fab: View = findViewById(R.id.fab_main)
         fab.setOnClickListener {
-            addInfo()
+            addLecture()
         }
-
+        loadingDialog.startLoading()
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(this)
         adapter = RcViewAdapter(list, this)
@@ -68,25 +73,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         auth = FirebaseAuth.getInstance()
         fStore = FirebaseFirestore.getInstance()
-        //loadingDialog.startLoadingDialog()
-        GlobalScope.launch {
-                contentArray = getCurrentData()
-                informationResponse = information.getMainContent()
-            runOnUiThread {
-                adapter?.updateAdapter(contentArray)
-                //loadingDialog.dismissDialog()
-            }
-        }
-        refresh.setOnRefreshListener {
-            GlobalScope.launch {
-                contentArray.clear()
-                contentArray = getCurrentData()
-                runOnUiThread {
-                    adapter?.updateAdapter(contentArray)
+        val networkConnection = NetworkConnection(applicationContext)
+        networkConnection.observe(this, { isConnected ->
+            if (isConnected){
+                CoroutineScope(Dispatchers.IO).launch{
+                    contentArray = getCurrentData()
+                    informationResponse = information.getMainContent()
+                    runOnUiThread {
+                        adapter?.updateAdapter(contentArray)
+                        loadingDialog.isDismiss()
+                    }
+                }
+
+                refresh.setOnRefreshListener {
+                    CoroutineScope(Dispatchers.IO).launch{
+                        contentArray.clear()
+                        contentArray = getCurrentData()
+                        runOnUiThread {
+                            adapter?.updateAdapter(contentArray)
+                            refresh.isRefreshing = false
+                        }
+                    }
+                }
+            } else {
+                Snackbar.make(snackbarView, "You are not connected to the internet", Snackbar.LENGTH_LONG).show()
+                refresh.setOnRefreshListener {
+                    Snackbar.make(snackbarView, "You are not connected to the internet", Snackbar.LENGTH_LONG).show()
                     refresh.isRefreshing = false
                 }
             }
-        }
+         })
     }
 
     @DelicateCoroutinesApi
@@ -100,7 +116,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val response = api.getLectures().awaitResponse()
             if (response.isSuccessful){
                 data = response.body()!!
-            } 
+            }
         return data
     }
 
@@ -121,7 +137,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(Intent(this@MainActivity, LoginActivity::class.java))
         }
         checkAccessLevel(auth.uid.toString())
-
     }
 
     @SuppressLint("ResourceType")
@@ -168,7 +183,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     @SuppressLint("SimpleDateFormat")
     @DelicateCoroutinesApi
-    private fun addInfo() {
+    private fun addLecture() {
         val inflater = LayoutInflater.from(this)
         val v = inflater.inflate(R.layout.add_item, null)
 
@@ -209,7 +224,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val imageId = addImg.text.toString()
             val title = addTitle.text.toString()
             val item = LectureJsonItem(content,date,homeWork,(date + content).hashCode(),imageId,title)
-            GlobalScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 postCurrentData(item)
                 contentArray = getCurrentData()
                 runOnUiThread{
@@ -230,13 +245,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @DelicateCoroutinesApi
     override fun onResume() {
         super.onResume()
-        GlobalScope.launch {
-            contentArray = getCurrentData()
-            informationResponse = information.getMainContent()
-            runOnUiThread {
-                adapter?.updateAdapter(contentArray)
-                //loadingDialog.dismissDialog()
+        val networkConnection = NetworkConnection(applicationContext)
+        networkConnection.observe(this, { isConnected ->
+            if (isConnected){
+                CoroutineScope(Dispatchers.IO).launch{
+                    contentArray = getCurrentData()
+                    //informationResponse = information.getMainContent()
+                    runOnUiThread {
+                        adapter?.updateAdapter(contentArray)
+                    }
+                }
+
+                CoroutineScope(Dispatchers.IO).launch{
+                    contentArray = getCurrentData()
+                    informationResponse = information.getMainContent()
+                    runOnUiThread {
+                        adapter?.updateAdapter(contentArray)
+                        //loadingDialog.dismissDialog()
+                    }
+                }
             }
-        }
+        })
     }
 }
