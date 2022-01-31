@@ -1,30 +1,41 @@
 package com.harman.hhelper.information_response
 
-import com.google.gson.Gson
-import java.net.URL
+import com.harman.hhelper.api.ApiRequests
+import com.harman.hhelper.ui.BASE_URL
+import kotlinx.coroutines.DelicateCoroutinesApi
+import retrofit2.Retrofit
+import retrofit2.awaitResponse
+import retrofit2.converter.gson.GsonConverterFactory
 
 class Information {
 
-    lateinit var infoResponse : InfoResponse
+    lateinit var data: InfoResponse
 
-    fun getMainContent(): InfoResponse {
-        //val response = URL("http://95.79.178.246:8080/information").readText()
-        val response = URL("http://192.168.0.6:8080/information").readText()
-        val gson = Gson()
-        infoResponse = gson.fromJson(response, InfoResponse::class.java)
-        println(infoResponse.links.toString())
-        return infoResponse
+    @DelicateCoroutinesApi
+    suspend fun getInformation(): InfoResponse {
+        val api = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiRequests::class.java)
+        val response = api.getInfo().awaitResponse()
+        if (response.isSuccessful) {
+            data = response.body()!!
+        }
+        return data
     }
 
     fun getLinks(): String {
-        return infoResponse.links.joinToString(""){
+        return data.links.joinToString("") {
             it.description + "\n" + it.href + "\n"
         }
-        }
-    fun getLinksL(): String {
-        return infoResponse.literature.joinToString("\n")
     }
+
+    fun getLinksL(): String {
+        return data.literature.joinToString("\n")
+    }
+
     fun getSchedule(): String {
-        return infoResponse.schedule
+        return data.schedule
     }
 }

@@ -13,7 +13,6 @@ data class InfoResponse(
 	@field:SerializedName("links")
 	var links: List<LinksItem>
 )
-
 data class LinksItem(
 
 	@field:SerializedName("description")

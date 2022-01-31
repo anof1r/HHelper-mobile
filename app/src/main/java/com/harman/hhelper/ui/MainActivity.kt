@@ -38,7 +38,7 @@ import java.util.*
 import com.harman.hhelper.NetworkConnection
 
 
-const val BASE_URL = "http://192.168.0.6:8080"
+const val BASE_URL = "http://192.168.0.3:8080"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,23 +49,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var fStore: FirebaseFirestore
     private lateinit var informationResponse: InfoResponse
     private var isAdminCheck: Boolean = false
-    private lateinit var snackbarView : ConstraintLayout
+    private lateinit var snackbarView: ConstraintLayout
+
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
         val rcView: RecyclerView = findViewById(R.id.rcView)
+
         val list = LectureJson()
+
         val loadingDialog = LoadingDialog(this)
+
         val refresh = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+
         snackbarView = findViewById(R.id.main_content_layout)
+
         val fab: View = findViewById(R.id.fab_main)
         fab.setOnClickListener {
             addLecture()
         }
+
         loadingDialog.startLoading()
+
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(this)
         adapter = RcViewAdapter(list, this)
@@ -73,22 +83,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         auth = FirebaseAuth.getInstance()
         fStore = FirebaseFirestore.getInstance()
+
         val networkConnection = NetworkConnection(applicationContext)
         networkConnection.observe(this, { isConnected ->
-            if (isConnected){
-                CoroutineScope(Dispatchers.IO).launch{
-                    contentArray = getCurrentData()
-                    informationResponse = information.getMainContent()
+            if (isConnected) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    contentArray = getLectures()
+                    informationResponse = information.getInformation()
                     runOnUiThread {
                         adapter?.updateAdapter(contentArray)
                         loadingDialog.isDismiss()
                     }
                 }
-
                 refresh.setOnRefreshListener {
-                    CoroutineScope(Dispatchers.IO).launch{
+                    CoroutineScope(Dispatchers.IO).launch {
                         contentArray.clear()
-                        contentArray = getCurrentData()
+                        contentArray = getLectures()
                         runOnUiThread {
                             adapter?.updateAdapter(contentArray)
                             refresh.isRefreshing = false
@@ -96,38 +106,47 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                 }
             } else {
-                Snackbar.make(snackbarView, "You are not connected to the internet", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    snackbarView,
+                    "You are not connected to the internet",
+                    Snackbar.LENGTH_LONG
+                ).show()
                 refresh.setOnRefreshListener {
-                    Snackbar.make(snackbarView, "You are not connected to the internet", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        snackbarView,
+                        "You are not connected to the internet",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                     refresh.isRefreshing = false
                 }
             }
-         })
+        })
     }
 
     @DelicateCoroutinesApi
-    private suspend fun getCurrentData(): LectureJson {
-        lateinit var data : LectureJson
+    private suspend fun getLectures(): LectureJson {
+        lateinit var data: LectureJson
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiRequests::class.java)
-            val response = api.getLectures().awaitResponse()
-            if (response.isSuccessful){
-                data = response.body()!!
-            }
+        val response = api.getLectures().awaitResponse()
+        if (response.isSuccessful) {
+            data = response.body()!!
+        }
         return data
     }
 
     @DelicateCoroutinesApi
-    suspend fun postCurrentData(item: LectureJsonItem) {
+    suspend fun addLecture(item: LectureJsonItem) {
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiRequests::class.java)
-        api.postLecture(item.content,item.date,item.homeWork,item.id,item.imageId,item.title).awaitResponse()
+        api.postLecture(item.content, item.date, item.homeWork, item.id, item.imageId, item.title)
+            .awaitResponse()
     }
 
     @SuppressLint("ResourceType")
@@ -153,14 +172,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.id_contacts -> {
-            }
-            R.id.night_mode -> {
+                startActivity(Intent(this@MainActivity, ContactActivity::class.java))
             }
             R.id.id_sign_out -> {
                 auth.signOut()
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
             }
-            R.id.id_content_manager -> {
+            R.id.about -> {
+                startActivity(Intent(this@MainActivity, AboutActivity::class.java))
             }
         }
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -194,25 +213,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val addDate = v.findViewById<TextView>(R.id.addDate)
 
         addDate.text = SimpleDateFormat(format).format(System.currentTimeMillis())
-            val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
 
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val sdf = SimpleDateFormat(format, Locale.FRANCE)
-                addDate.text = sdf.format(calendar.time)
-            }
-        addDate.setOnClickListener{
-            DatePickerDialog(this@MainActivity, dateSetListener,
+            val sdf = SimpleDateFormat(format, Locale.FRANCE)
+            addDate.text = sdf.format(calendar.time)
+        }
+        addDate.setOnClickListener {
+            DatePickerDialog(
+                this@MainActivity, dateSetListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show()
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
         val addHw = v.findViewById<EditText>(R.id.addHomeWork)
-        //val addId = v.findViewById<EditText>(R.id.addId)
 
         val addDialog = AlertDialog.Builder(this)
 
@@ -223,20 +243,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val homeWork = addHw.text.toString()
             val imageId = addImg.text.toString()
             val title = addTitle.text.toString()
-            val item = LectureJsonItem(content,date,homeWork,(date + content).hashCode(),imageId,title)
+            val item = LectureJsonItem(
+                content,
+                date,
+                homeWork,
+                (date + content).hashCode(),
+                imageId,
+                title
+            )
             CoroutineScope(Dispatchers.IO).launch {
-                postCurrentData(item)
-                contentArray = getCurrentData()
-                runOnUiThread{
+                addLecture(item)
+                contentArray = getLectures()
+                runOnUiThread {
                     adapter?.updateAdapter(contentArray)
                 }
             }
-            Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
+            Snackbar.make(snackbarView, "Lecture " + title + " added!", Snackbar.LENGTH_SHORT)
+                .show()
             dialog.dismiss()
         }
         addDialog.setNegativeButton("Cancel") { dialog, _ ->
             dialog.dismiss()
-            Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
         }
         addDialog.create()
         addDialog.show()
@@ -247,21 +274,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onResume()
         val networkConnection = NetworkConnection(applicationContext)
         networkConnection.observe(this, { isConnected ->
-            if (isConnected){
-                CoroutineScope(Dispatchers.IO).launch{
-                    contentArray = getCurrentData()
-                    //informationResponse = information.getMainContent()
+            if (isConnected) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    contentArray = getLectures()
+                    informationResponse = information.getInformation()
                     runOnUiThread {
                         adapter?.updateAdapter(contentArray)
                     }
                 }
 
-                CoroutineScope(Dispatchers.IO).launch{
-                    contentArray = getCurrentData()
-                    informationResponse = information.getMainContent()
+                CoroutineScope(Dispatchers.IO).launch {
+                    contentArray = getLectures()
+                    informationResponse = information.getInformation()
                     runOnUiThread {
                         adapter?.updateAdapter(contentArray)
-                        //loadingDialog.dismissDialog()
+
                     }
                 }
             }

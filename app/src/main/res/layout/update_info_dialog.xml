@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Update information"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:textColor="@color/white"
+                android:background="@color/harmanColor"
+                android:padding="10dp"
+                android:elevation="15dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/updateLinks"
+                android:hint="Update Links"
+                android:inputType="text|textMultiLine"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <EditText
+                android:id="@+id/updateLiterature"
+                android:hint="Update Literature"
+                android:inputType="text|textMultiLine"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <EditText
+                android:id="@+id/updateSchedule"
+                android:hint="Update Schedule"
+                android:inputType="text|textMultiLine"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

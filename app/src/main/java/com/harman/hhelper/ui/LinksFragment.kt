@@ -9,14 +9,13 @@ import android.widget.TextView
 import com.harman.hhelper.R
 
 
-class InfoF_fragment : Fragment() {
+class LinksFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_info_f_fragment, container, false)
-
+        val view = inflater.inflate(R.layout.links_fragment, container, false)
         val textTitle = view.findViewById<TextView>(R.id.ff_title)
         textTitle.text = activity?.intent?.extras?.getString("links")
         return view

@@ -3,18 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.InfoF_fragment"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:context=".ui.ScheduleFragment">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/ff_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="THIRD FRAGMENT"
         android:gravity="center"
-        android:text="FIRST FRAGMENT" />
-</ScrollView>
+        android:id="@+id/tf_title"/>
+
 </FrameLayout>

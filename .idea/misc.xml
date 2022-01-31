@@ -20,12 +20,15 @@
         <entry key="..\:/HarmanProject/app/src/main/res/drawable/menu_back_state.xml" value="0.265625" />
         <entry key="..\:/HarmanProject/app/src/main/res/drawable/menu_item_padding.xml" value="0.265625" />
         <entry key="..\:/HarmanProject/app/src/main/res/drawable/splash_screen.xml" value="0.27447916666666666" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/about_layout.xml" value="0.33" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/add_item.xml" value="0.3663949275362319" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/app_bar_main.xml" value="0.24375" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/contact_item.xml" value="0.33" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/contact_view.xml" value="0.25" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/contacts_item.xml" value="0.33" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/contacts_layout.xml" value="0.22239583333333332" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/contacts_list.xml" value="0.3125" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/content_layout.xml" value="0.33" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/content_main.xml" value="0.3523550724637681" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/content_manager.xml" value="0.36666666666666664" />
@@ -53,8 +56,9 @@
         <entry key="..\:/HarmanProject/app/src/main/res/layout/registration_activity.xml" value="0.25" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/sign_in_activity.xml" value="0.25" />
         <entry key="..\:/HarmanProject/app/src/main/res/layout/sm.xml" value="0.2526041666666667" />
+        <entry key="..\:/HarmanProject/app/src/main/res/layout/update_info_dialog.xml" value="0.3161231884057971" />
         <entry key="..\:/HarmanProject/app/src/main/res/menu/activity_main_drawer.xml" value="0.24375" />
-        <entry key="..\:/HarmanProject/app/src/main/res/menu/drawer_main_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/HarmanProject/app/src/main/res/menu/drawer_main_menu.xml" value="0.25" />
         <entry key="..\:/HarmanProject/app/src/main/res/menu/info_menu.xml" value="0.22" />
         <entry key="..\:/HarmanProject/app/src/main/res/menu/main_activity2.xml" value="0.24375" />
         <entry key="..\:/HarmanProject/app/src/main/res/menu/settings_menu.xml" value="0.2526041666666667" />

@@ -22,9 +22,9 @@ class RcViewAdapter(listArray:LectureJson, context: Context): RecyclerView.Adapt
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 
-        private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
-        private val img: ImageView = itemView.findViewById(R.id.img)
+        private val tvTitle: TextView = itemView.findViewById(R.id.content_title)
+        private val tvContent: TextView = itemView.findViewById(R.id.content_info)
+        private val img: ImageView = itemView.findViewById(R.id.content_img)
         private val date: TextView = itemView.findViewById(R.id.tvDate)
 
         private fun getImageId(context: Context, imageName: String): Int {

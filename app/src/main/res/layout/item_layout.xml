@@ -8,7 +8,7 @@
     android:background="@android:drawable/editbox_background">
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/content_img"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginTop="16dp"
@@ -16,10 +16,10 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/kotlin" />
+        app:srcCompat="@drawable/kotlin"/>
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/content_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -29,10 +29,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img" />
+        app:layout_constraintTop_toBottomOf="@+id/content_img" />
 
     <TextView
-        android:id="@+id/tvContent"
+        android:id="@+id/content_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/content_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView

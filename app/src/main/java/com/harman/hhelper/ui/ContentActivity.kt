@@ -3,7 +3,6 @@ package com.harman.hhelper.ui
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
@@ -15,8 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.harman.hhelper.api.ApiRequests
 import com.harman.hhelper.R
+import com.harman.hhelper.api.ApiRequests
 import com.harman.hhelper.api.LectureJsonItem
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -72,11 +71,14 @@ class ContentActivity : AppCompatActivity() {
         tvHomeWork.text = "Homework: " + intent.getStringExtra("hw")
         date.text = intent.getStringExtra("date")
         imgCL.setImageResource(intent.getIntExtra("image", R.drawable.harman))
+
         val id: Int = intent.getIntExtra("id", 0)
         Id = id
+
         val fab = findViewById<FloatingActionButton>(R.id.fab_CL)
         val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
         val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
+
         setVisibility(true)
 
         @DelicateCoroutinesApi
@@ -183,80 +185,70 @@ class ContentActivity : AppCompatActivity() {
                 imageId,
                 title
             )
-            if (TextUtils.isEmpty(addTitle.toString())) {
-                addTitle.error = "Title cannot be empty"
-                addTitle.requestFocus()
-            } else if (TextUtils.isEmpty(addImg.toString())) {
-                addImg.error = "Password cannot be empty"
-                addImg.requestFocus()
-            } else if (TextUtils.isEmpty(addLectureInfo.toString())) {
-                addLectureInfo.error = "Content cannot be empty"
-                addLectureInfo.requestFocus()
-            } else {
-                GlobalScope.launch {
-                    editCurrentData(item)
-                }
-                Toast.makeText(
-                    this,
-                    intent.getStringExtra("title") + " edit Success",
-                    Toast.LENGTH_SHORT
-                ).show()
-                dialog.dismiss()
-                finish()
+            GlobalScope.launch {
+                editCurrentData(item)
             }
-        }
-            editDialog.setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
-            }
-            editDialog.create()
-            editDialog.show()
+            Toast.makeText(
+                this,
+                intent.getStringExtra("title") + " edit Success",
+                Toast.LENGTH_SHORT
+            ).show()
+            dialog.dismiss()
+            finish()
         }
 
-        private fun onSettingsButtonClicked() {
-            setVisibility(clicked)
-            setAnimation(clicked)
-            setClickable(clicked)
-            clicked = !clicked
+        editDialog.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+            Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
         }
+        editDialog.create()
+        editDialog.show()
+    }
 
-        private fun setAnimation(clicked: Boolean) {
-            val fab = findViewById<FloatingActionButton>(R.id.fab_CL)
-            val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
-            val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
+    private fun onSettingsButtonClicked() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        setClickable(clicked)
+        clicked = !clicked
+    }
 
-            if (!clicked) {
-                fab.startAnimation(rotateOpen)
-                fabDelete.startAnimation(fromBottom)
-                fabEdit.startAnimation(fromBottom)
-            } else {
-                fab.startAnimation(rotateClose)
-                fabDelete.startAnimation(toBottom)
-                fabEdit.startAnimation(toBottom)
-            }
-        }
+    private fun setAnimation(clicked: Boolean) {
+        val fab = findViewById<FloatingActionButton>(R.id.fab_CL)
+        val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
+        val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
 
-        private fun setVisibility(clicked: Boolean) {
-            val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
-            val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
-            if (!clicked) {
-                fabDelete.visibility = View.VISIBLE
-                fabEdit.visibility = View.VISIBLE
-            } else {
-                fabDelete.visibility = View.GONE
-                fabEdit.visibility = View.GONE
-            }
-        }
-
-        private fun setClickable(clicked: Boolean) {
-            val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
-            val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
-            if (!clicked) {
-                fabDelete.isClickable = true
-                fabEdit.isClickable = true
-            } else {
-                fabDelete.isClickable = false
-                fabEdit.isClickable = false
-            }
+        if (!clicked) {
+            fab.startAnimation(rotateOpen)
+            fabDelete.startAnimation(fromBottom)
+            fabEdit.startAnimation(fromBottom)
+        } else {
+            fab.startAnimation(rotateClose)
+            fabDelete.startAnimation(toBottom)
+            fabEdit.startAnimation(toBottom)
         }
     }
+
+    private fun setVisibility(clicked: Boolean) {
+        val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
+        val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
+        if (!clicked) {
+            fabDelete.visibility = View.VISIBLE
+            fabEdit.visibility = View.VISIBLE
+        } else {
+            fabDelete.visibility = View.GONE
+            fabEdit.visibility = View.GONE
+        }
+    }
+
+    private fun setClickable(clicked: Boolean) {
+        val fabEdit = findViewById<FloatingActionButton>(R.id.fab_edit)
+        val fabDelete = findViewById<FloatingActionButton>(R.id.fab_delete)
+        if (!clicked) {
+            fabDelete.isClickable = true
+            fabEdit.isClickable = true
+        } else {
+            fabDelete.isClickable = false
+            fabEdit.isClickable = false
+        }
+    }
+}

@@ -12,11 +12,11 @@ class FragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     when(position){
         1 -> {
 
-            return info_s_fragment()
+            return LiteratureFragment()
         }
-        2 -> return info_t_fragment()
+        2 -> return ScheduleFragment()
     }
-        return InfoF_fragment()
+        return LinksFragment()
     }
 
     override fun getItemCount(): Int {

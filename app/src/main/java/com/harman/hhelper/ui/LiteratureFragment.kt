@@ -9,16 +9,17 @@ import android.widget.TextView
 import com.harman.hhelper.R
 
 
-class info_t_fragment : Fragment() {
+class LiteratureFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_info_t_fragment, container, false)
+        val infoLayout : InfoLayout
+        val view = inflater.inflate(R.layout.literature_fragment, container, false)
 
-        val textTitle = view.findViewById<TextView>(R.id.tf_title)
-        textTitle.text = activity?.intent?.extras?.getString("schedule")
+        val textTitle = view.findViewById<TextView>(R.id.sf_title)
+        textTitle.text = activity?.intent?.extras?.getString("literature")
         return view
     }
 

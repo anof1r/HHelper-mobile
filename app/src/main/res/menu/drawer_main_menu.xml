@@ -18,23 +18,13 @@
 
     <item android:title="@string/settings">
         <menu>
-            <item android:title="@string/night_mode"
-                android:id="@+id/night_mode"
-                android:icon="@drawable/night_mode"/>
             <item android:title="@string/sign_out"
                 android:id="@+id/id_sign_out"
                 android:icon="@drawable/sign_out"/>
         </menu>
     </item>
 
-    <item
-        android:id="@+id/admin_tools"
-        android:title="@string/administration_tools">
-        <menu>
-            <item
-                android:id="@+id/id_content_manager"
-                android:icon="@drawable/ic_add_materials"
-                android:title="@string/open_content_manager" />
-        </menu>
-    </item>
+    <item android:title="About us"
+        android:id="@+id/about"
+        android:icon="@drawable/ic_information"/>
 </menu>
