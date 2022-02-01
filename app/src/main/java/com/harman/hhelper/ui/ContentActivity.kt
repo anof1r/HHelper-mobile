@@ -93,10 +93,8 @@ class ContentActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             onSettingsButtonClicked()
-            println("main CLICKED")
         }
         fabDelete.setOnClickListener {
-            println("DELETE CLICKED")
             val deleteDialog = AlertDialog.Builder(this)
                 .setTitle("Delete lecture")
                 .setMessage("Are you sure you want to delete this lecture?")

@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         auth = FirebaseAuth.getInstance()
         fStore = FirebaseFirestore.getInstance()
 
+
         val networkConnection = NetworkConnection(applicationContext)
         networkConnection.observe(this, { isConnected ->
             if (isConnected) {

@@ -30,7 +30,5 @@
         >
         <item name="color">#AE000000</item>
     </style>
-    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
+
 </resources>

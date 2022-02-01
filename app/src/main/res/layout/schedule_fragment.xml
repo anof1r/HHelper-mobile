@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
     tools:context=".ui.ScheduleFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tf_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="THIRD FRAGMENT"
-        android:gravity="center"
-        android:id="@+id/tf_title"/>
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="THIRD FRAGMENT" />
 
 </FrameLayout>

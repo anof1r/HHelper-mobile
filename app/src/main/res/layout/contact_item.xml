@@ -46,56 +46,29 @@
         app:layout_constraintTop_toBottomOf="@+id/contactName" />
 
     <TextView
-        android:id="@+id/tvTelegram"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="20dp"
-        android:text="Telegram :"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="40dp"
-        android:text="Email :"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCN"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tvCN"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Contact number:"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contactPosition" />
-
-    <TextView
         android:id="@+id/contactNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="12dp"
         android:autoLink="phone"
         android:text="+79200547185"
         android:textColor="@color/harmanColor"
         app:layout_constraintEnd_toStartOf="@+id/contactImg"
-        app:layout_constraintHorizontal_bias="0.412"
-        app:layout_constraintStart_toEndOf="@+id/tvCN"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contactTelegram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="_@anof1r"
+        app:layout_constraintEnd_toStartOf="@+id/contactImg"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/contactEmail" />
 
     <TextView
         android:id="@+id/contactEmail"
@@ -105,19 +78,41 @@
         android:autoLink="email"
         android:text="anofriev.denis@gmail.com"
         app:layout_constraintEnd_toStartOf="@+id/contactImg"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toEndOf="@+id/tvEmail"
+        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/contactNumber" />
 
-    <TextView
-        android:id="@+id/contactTelegram"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="_@anof1r"
-        app:layout_constraintEnd_toStartOf="@+id/contactImg"
-        app:layout_constraintHorizontal_bias="0.575"
-        app:layout_constraintStart_toEndOf="@+id/tvTelegram"
-        app:layout_constraintTop_toBottomOf="@+id/contactEmail" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactPosition"
+        app:srcCompat="@drawable/ic_baseline_local_phone_24" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@drawable/ic_email" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_telegram" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

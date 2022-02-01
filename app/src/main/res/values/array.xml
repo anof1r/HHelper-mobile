@@ -36,4 +36,12 @@
         <item>@drawable/schedule</item>
         <item>@drawable/git</item>
     </string-array>
+    <string-array name="spinnerArray">
+        <item>default</item>
+        <item>rxjava</item>
+        <item>git</item>
+        <item>kotlin</item>
+        <item>android</item>
+        <item>git</item>
+    </string-array>
 </resources>

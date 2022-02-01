@@ -37,7 +37,6 @@ class ContactActivity : AppCompatActivity() {
         adapter = ContactAdapter(list, this)
         rcView.adapter = adapter
 
-
         val networkConnection = NetworkConnection(applicationContext)
         networkConnection.observe(this, { isConnected ->
             if (isConnected) {

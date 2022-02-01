@@ -15,17 +15,18 @@
         android:src="@drawable/harman"
         android:layout_centerVertical="true"
         android:id="@+id/header_img"/>
+
     <TextView
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/header_img"
-        android:id="@+id/name"
-        android:layout_marginLeft="20dp"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/header_img"
         android:text="Denis Anofriev"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

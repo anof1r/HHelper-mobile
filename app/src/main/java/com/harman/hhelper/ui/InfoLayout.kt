@@ -86,7 +86,7 @@ class InfoLayout : AppCompatActivity() {
         uSchedule.setText(intent.getStringExtra("schedule"))
         addDialog.setView(v)
         addDialog.setPositiveButton("Update") { dialog, _ ->
-
+/*
             val links = uLinks.text.toString()
             val literature = uLiterature.text.toString()
             val schedule = uSchedule.text.toString()
@@ -94,8 +94,8 @@ class InfoLayout : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 postCurrentData(literature,schedule,links)
             }
-
-            Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
+ */
+            //Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
         addDialog.setNegativeButton("Cancel") { dialog, _ ->

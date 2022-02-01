@@ -64,7 +64,6 @@ class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
                     super.onLost(network)
                     postValue(false)
                 }
-
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
                     postValue(true)
